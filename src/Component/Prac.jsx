@@ -1,34 +1,51 @@
 import { useEffect, useState } from "react";
 
-const Prac  = () => {
+const Prac = () => {
 
-    const [count,chCount] = useState(0);
-    const [name,chName] = useState("")
+    const [datarep, chDatarep] = useState([])
 
-    const incre = () => {
-        chCount(count + 1)
-    }
+    useEffect(() => {
 
-    const decre = () => {
-        chCount(count - 1)
-    }
+        const fetchdata = async () => {
+            try {
+                const rep = await fetch("https://jsonplaceholder.typicode.com/posts");
+                if (!rep.ok) {
+                    throw new Error(rep.status);
+                }
 
-    const handle = (e) => {
-        chName(e)   
-    }
+                const repdata = await rep.json()
+               chDatarep(repdata)
+
+            } catch (err) {
+                console.log("Failed to Fetch Api", err)
+            }
+        }
+
+        fetchdata()
+
+        return () => {
+            console.log("Clean up code here")
+        }
+
+    }, [])
 
     return (
         <>
-        <h3>Use State</h3>
-            <p>{count}</p>
-            <p>{name}</p>
-            <button type="button" onClick={() => incre()}>Increment</button>
-            <button type="button" onClick={()=> decre()}>Decrement</button>
-            <input type="text" value={name} onChange={(e)=> handle(e.target.value)}></input>
+            <h3>Use Effect</h3>
+            {
+                datarep && datarep?.map((item) => (
+                    <div key={item.id}>
+                        <h3>User Id: {item.id}</h3>
+                        <p>Name : {item.title}</p>
+                        <p>Email : {item.body}</p>
+                    </div>
+                ))
+            }
+
         </>
     )
-  
-  
+
+
 }
 
 export default Prac

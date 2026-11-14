@@ -38,7 +38,7 @@ function App() {
        <hr></hr>
         <Prac name = "Devidhana"></Prac>
         <hr></hr>
-        <Excer2 name = "Deviprithi"></Excer2>
+        {/* <Excer2 name = "Deviprithi"></Excer2> */}
         {/* <Userlist></Userlist> */}
         <br></br>
         <br></br>
