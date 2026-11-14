@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const Prac = () => {
 
-    const [datarep, chDatarep] = useState([])
+    const [datarep, chDatarep] = useState([]);
 
     useEffect(() => {
 
