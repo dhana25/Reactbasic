@@ -2,45 +2,36 @@ import { useEffect, useState } from "react";
 
 const Prac = () => {
 
-    const [datarep, chDatarep] = useState([]);
+    const [name,chName] = useState("");
+    const [opt,chOpt] = useState("");
+    const [tarea,chTarea] = useState("")
 
-    useEffect(() => {
+    const handleInput = (event) => {
+        chName(event.target.value)
+    }
 
-        const fetchdata = async () => {
-            try {
-                const rep = await fetch("https://jsonplaceholder.typicode.com/posts");
-                if (!rep.ok) {
-                    throw new Error(rep.status);
-                }
+    const handleOption = (event) => {
+        chOpt(event.target.value)
+    }
 
-                const repdata = await rep.json()
-               chDatarep(repdata)
-
-            } catch (err) {
-                console.log("Failed to Fetch Api", err)
-            }
-        }
-
-        fetchdata()
-
-        return () => {
-            console.log("Clean up code here")
-        }
-
-    }, [])
+    const handleText = (event) => {
+        chTarea(event.target.value)
+    }
 
     return (
         <>
-            <h3>Use Effect</h3>
-            {
-                datarep && datarep?.map((item) => (
-                    <div key={item.id}>
-                        <h3>User Id: {item.id}</h3>
-                        <p>Name : {item.title}</p>
-                        <p>Email : {item.body}</p>
-                    </div>
-                ))
-            }
+            <h3>OnChange Event - {name} - {opt} - {tarea}</h3>
+            <input type="text" value={name} onChange={handleInput}></input>
+            <select value={opt} onChange={handleOption}>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+                <option value="5">Option 5</option>
+            </select>
+            <textarea value={tarea} onChange={handleText} row="5" col="5">
+
+            </textarea>
 
         </>
     )
